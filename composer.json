@@ -3,22 +3,35 @@
     "description": "CakePHP plugin that adds some cleaner Bake Templates",
     "type": "cakephp-plugin",
     "license": "MIT",
+    "keywords": ["cakephp", "bake"],
     "require": {
         "php": ">=7.2",
-        "cakephp/cakephp": "^4.0"
+        "cakephp/cakephp": "^4.0",
+        "cakephp/bake": "^2.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0"
     },
     "autoload": {
         "psr-4": {
-            "CleanerBake\\": "src/"
+            "Pggns\\CleanerBake\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CleanerBake\\Test\\": "tests/",
+            "Pggns\\CleanerBake\\Test\\": "tests/",
             "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
         }
+    },
+    "authors": [
+        {
+            "name": "pggns",
+            "email": "projects@pggns.de",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/pggns/cakephp-cleaner-bake"
+		"issues": "https://github.com/pggns/cakephp-cleaner-bake/issues"
     }
 }
