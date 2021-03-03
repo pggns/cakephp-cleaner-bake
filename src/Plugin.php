@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Pggns\CleanerBake;
 
-use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
 use Cake\Core\PluginApplicationInterface;
+use Cake\Event\Event;
 
 class Plugin extends BasePlugin {
 	/**
@@ -13,14 +13,12 @@ class Plugin extends BasePlugin {
 	 * @return void
 	 */
 	public function bootstrap(PluginApplicationInterface $app): void {
+		$eventManager	=	$app->getEventManager();
+		$eventManager->on('Bake.initialize', function(Event $event) {
+			$view	=	$event->getSubject();
+			$view->loadHelper('Pggns/CleanerBake.BakeFix');
+		});
+		
 		parent::bootstrap($app);
-	}
-	
-	/**
-	 * @param \Cake\Console\CommandCollection $commands CommandCollection
-	 * @return \Cake\Console\CommandCollection
-	 */
-	public function console(CommandCollection $commands): CommandCollection {
-		return $commands;
 	}
 }

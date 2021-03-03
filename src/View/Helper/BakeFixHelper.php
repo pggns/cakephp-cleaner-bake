@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace CleanerBake\View\Helper;
+namespace Pggns\CleanerBake\View\Helper;
 
 use Bake\Utility\Model\AssociationFilter;
 use Cake\Core\ConventionsTrait;
 use Cake\View\Helper;
 
 /**
- * CleanerBake helper
+ * BakeFix helper
  */
-class CleanerBakeHelper extends Helper {
+class BakeFixHelper extends Helper {
 	use ConventionsTrait;
 	
 	/**

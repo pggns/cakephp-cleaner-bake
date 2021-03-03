@@ -1,8 +1,4 @@
 <?php
-use Cake\Event\Event;
-use Cake\Event\EventManager;
+use Cake\Core\Configure;
 
-EventManager::instance()->on('Bake.initialize', function(Event $event) {
-	$view	=	$event->getSubject();
-	$view->loadHelper('CleanerBake.CleanerBake');
-});
+Configure::write('Bake.theme', 'Pggns/CleanerBake');
