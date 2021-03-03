@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Pggns\CleanerBake\View\Helper;
 
 use Bake\Utility\Model\AssociationFilter;
+use Cake\Core\Configure;
 use Cake\Core\ConventionsTrait;
 use Cake\View\Helper;
 
@@ -35,17 +36,18 @@ class BakeFixHelper extends Helper {
 	 * @return string
 	 */
 	public function stringifyList(array $list, array $options = []): string {
-		$defaults = [
-			'indent'		=>	2,
-			'tab'			=>	'	',
-			'tab_length'	=>	4,
-			'trailingComma'	=>	!isset($options['indent']) || $options['indent'] ? true : false,
-			'quotes'		=>	true,
-			'align'			=>	true,
+		$defaults	=	[
+			'indent'		=>	Configure::read('Pggns.CleanerBake.stringifyList.indent'),
+			'tab'			=>	Configure::read('Pggns.CleanerBake.stringifyList.tab'),
+			'tabLength'		=>	Configure::read('Pggns.CleanerBake.stringifyList.tabLength'),
+			'trailingComma'	=>	Configure::read('Pggns.CleanerBake.stringifyList.trailingComma'),
+			'quotes'		=>	Configure::read('Pggns.CleanerBake.stringifyList.quotes'),
+			'align'			=>	Configure::read('Pggns.CleanerBake.stringifyList.align'),
 		];
-		$options += $defaults;
 		
-		if (!$list) {
+		$options	=	$defaults+$options;
+		
+		if(!$list) {
 			return '';
 		}
 		
@@ -63,7 +65,7 @@ class BakeFixHelper extends Helper {
 			
 			$max_key_length	+=	2;
 			
-			$tab_length		=	$options['tab_length'];
+			$tab_length		=	$options['tabLength'];
 			$does_fit		=	$max_key_length % $tab_length === 0;
 			$max_tab_count	=	floor($max_key_length / $tab_length) + 1;
 		}
@@ -79,7 +81,7 @@ class BakeFixHelper extends Helper {
 				}
 				$tab	=	$options['tab'];
 				if($options['align']) {
-					$tab_length		=	$options['tab_length'];
+					$tab_length		=	$options['tabLength'];
 					$key_length		=	strlen($k) + 2;
 					
 					$diff			=	$max_key_length - $key_length;
