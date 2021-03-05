@@ -45,7 +45,7 @@ class BakeFixHelper extends Helper {
 			'align'			=>	Configure::read('Pggns.CleanerBake.stringifyList.align'),
 		];
 		
-		$options	=	$defaults+$options;
+		$options	=	array_merge($defaults, $options);
 		
 		if(!$list) {
 			return '';
