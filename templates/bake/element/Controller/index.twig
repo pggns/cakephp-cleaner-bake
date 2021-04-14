@@ -22,7 +22,7 @@
 {% set belongsTo = Bake.aliasExtractor(modelObj, 'BelongsTo') %}
 {% if belongsTo %}
 		$this->paginate	=	[
-			'contain'	=>	[{{ Bake.stringifyList(belongsTo, {'indent': 4})|raw }}],
+			'contain'	=>	[{{ BakeFix.stringifyList(belongsTo, {'indent': 4})|raw }}],
 		];
 		
 {% endif %}
