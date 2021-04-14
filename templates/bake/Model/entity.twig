@@ -45,7 +45,7 @@ class {{ name }} extends Entity {
 	protected $_accessible	=	[{{ BakeFix.stringifyList(accessible, {'quotes': false})|raw }}];
 {% endif %}
 {% if accessible and hidden %}
-
+	
 {% endif %}
 {%- if hidden %}
 	/**

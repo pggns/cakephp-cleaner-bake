@@ -54,7 +54,7 @@ class {{ name }}Table extends Table {
 {%- if behaviors %}
 		
 {% endif %}
-
+		
 {%- for behavior, behaviorData in behaviors %}
 		$this->addBehavior('{{ behavior }}'{{ (behaviorData ? (", [" ~ BakeFix.stringifyList(behaviorData, {'indent': 3, 'quotes': false})|raw ~ ']') : '')|raw }});
 {% endfor %}
