@@ -19,14 +19,14 @@ class BakeFixHelper extends Helper {
 	 *
 	 * @var array
 	 */
-	protected $_defaultConfig = [];
+	protected $_defaultConfig	=	[];
 	
 	/**
 	 * AssociationFilter utility
 	 *
 	 * @var \Bake\Utility\Model\AssociationFilter|null
 	 */
-	protected $_associationFilter = null;
+	protected $_associationFilter	=	null;
 	
 	/**
 	 * Returns an array converted into a formatted multiline string
@@ -70,16 +70,20 @@ class BakeFixHelper extends Helper {
 			$max_tab_count	=	floor($max_key_length / $tab_length) + 1;
 		}
 		
-		foreach ($list as $k => &$v) {
-			if ($options['quotes']) {
-				$v = "'$v'";
+		foreach($list as $k => &$v) {
+			if($options['quotes']) {
+				$v	=	"'$v'";
 			}
-			if (!is_numeric($k)) {
-				$nestedOptions = $options;
-				if ($nestedOptions['indent']) {
-					$nestedOptions['indent'] += 1;
+			
+			if(!is_numeric($k)) {
+				$nestedOptions	=	$options;
+				
+				if($nestedOptions['indent']) {
+					$nestedOptions['indent']	+=	1;
 				}
+				
 				$tab	=	$options['tab'];
+				
 				if($options['align']) {
 					$tab_length		=	$options['tabLength'];
 					$key_length		=	strlen($k) + 2;
@@ -94,42 +98,48 @@ class BakeFixHelper extends Helper {
 				} else {
 					$tabs			=	$tab;
 				}
-				if (is_array($v)) {
-					$v = sprintf(
-						"'%s'%s=>%s[%s]",
-						$k,
-						$tabs,
-						$tab,
-						$this->stringifyList($v, $nestedOptions)
-					);
+				
+				if(is_array($v)) {
+					$v	=	sprintf(
+								"'%s'%s=>%s[%s]",
+								$k,
+								$tabs,
+								$tab,
+								$this->stringifyList($v, $nestedOptions)
+							);
 				} else {
-					$v = "'$k'$tabs=>$tab$v";
+					$v	=	"'$k'$tabs=>$tab$v";
 				}
-			} elseif (is_array($v)) {
-				$nestedOptions = $options;
-				if ($nestedOptions['indent']) {
-					$nestedOptions['indent'] += 1;
+			} elseif(is_array($v)) {
+				$nestedOptions	=	$options;
+				
+				if($nestedOptions['indent']) {
+					$nestedOptions['indent']	+=	1;
 				}
-				$v = sprintf(
-					'[%s]',
-					$this->stringifyList($v, $nestedOptions)
-				);
+				
+				$v	=	sprintf(
+							'[%s]',
+							$this->stringifyList($v, $nestedOptions)
+						);
 			}
 		}
 		
-		$start = $end = '';
-		$join = ', ';
-		if ($options['indent']) {
-			$join = ',';
-			$start = "\n" . str_repeat($options['tab'], $options['indent']);
-			$join .= $start;
-			$end = "\n" . str_repeat($options['tab'], $options['indent'] - 1);
+		$start	=	'';
+		$end	=	'';
+		$join	=	', ';
+		
+		if($options['indent']) {
+			$join	=	',';
+			$start	=	"\n".str_repeat($options['tab'], $options['indent']);
+			
+			$join	.=	$start;
+			$end	=	"\n".str_repeat($options['tab'], $options['indent'] - 1);
 		}
 		
-		if ($options['trailingComma'] && $options['indent'] > 0) {
-			$end = ',' . $end;
+		if($options['trailingComma'] && $options['indent'] > 0) {
+			$end	=	','.$end;
 		}
 		
-		return $start . implode($join, $list) . $end;
+		return $start.implode($join, $list).$end;
 	}
 }

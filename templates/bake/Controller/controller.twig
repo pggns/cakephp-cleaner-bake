@@ -56,7 +56,7 @@ class {{ name }}Controller extends AppController {
         $this->loadComponent('{{ component }}');
 {% endfor %}
 {% if helpers %}
-        $this->viewBuilder()->setHelpers([{{ Bake.stringifyList(helpers, {'indent': false})|raw }}]);
+        $this->viewBuilder()->setHelpers([{{ Bake.stringifyList(helpers, {'indent': 3})|raw }}]);
 {% endif %}
     }
 {% if actions|length %}{{ "\n" }}{% endif %}

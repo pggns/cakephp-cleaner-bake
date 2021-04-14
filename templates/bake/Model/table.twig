@@ -43,7 +43,7 @@ class {{ name }}Table extends Table {
 		
 {%- if primaryKey %}
 	{%- if primaryKey is iterable and primaryKey|length > 1 %}
-		$this->setPrimaryKey([{{ BakeFix.stringifyList(primaryKey, {'indent': false})|raw }}]);
+		$this->setPrimaryKey([{{ BakeFix.stringifyList(primaryKey, {'indent': 3})|raw }}]);
 		{{- "\n" }}
 	{%- else %}
 		$this->setPrimaryKey('{{ primaryKey|as_array|first }}');
