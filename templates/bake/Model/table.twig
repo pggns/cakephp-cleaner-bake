@@ -88,7 +88,7 @@ class {{ name }}Table extends Table {
 	 */
 	public function validationDefault(Validator $validator): Validator {
 {% for field, rules in validation %}
-{% set validationMethods = Bake.getValidationMethods(field, rules) %}
+{% set validationMethods = BakeFix.getValidationMethods(field, rules) %}
 {% if validationMethods %}
 		$validator
 {% for validationMethod in validationMethods %}

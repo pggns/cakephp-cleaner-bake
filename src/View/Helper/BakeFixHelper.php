@@ -136,10 +136,56 @@ class BakeFixHelper extends Helper {
 			$end	=	"\n".str_repeat($options['tab'], $options['indent'] - 1);
 		}
 		
-		if($options['trailingComma'] && $options['indent'] > 0) {
+		if($options['trailingComma']&&$options['indent'] > 0) {
 			$end	=	','.$end;
 		}
 		
 		return $start.implode($join, $list).$end;
+	}
+	
+	/**
+	 * Get validation methods data.
+	 *
+	 * @param string $field Field name.
+	 * @param array $rules Validation rules list.
+	 * @return string[]
+	 */
+	public function getValidationMethods(string $field, array $rules): array {
+		$validationMethods	=	[];
+		
+		foreach($rules AS $ruleName => $rule) {
+			if($rule['rule']&&!isset($rule['provider'])&&!isset($rule['args'])) {
+				$validationMethods[]	=	sprintf("->%s('%s')", $rule['rule'], $field);
+			} elseif($rule['rule']&&!isset($rule['provider'])) {
+				$formatTemplate	=	"->%s('%s')";
+				
+				if(!empty($rule['args'])) {
+					$formatTemplate	=	"->%s('%s', %s)";
+				}
+				
+				$validationMethods[]	=	sprintf(
+					$formatTemplate,
+					$rule['rule'],
+					$field,
+					$this->stringifyList(
+						$rule['args'],
+						[
+							'indent'	=>	false,
+							'quotes'	=>	false,
+						]
+					)
+				);
+			} elseif($rule['rule']&&isset($rule['provider'])) {
+				$validationMethods[]	=	sprintf(
+					"->add('%s', '%s', ['rule' => '%s', 'provider' => '%s'])",
+					$field,
+					$ruleName,
+					$rule['rule'],
+					$rule['provider']
+				);
+			}
+		}
+		
+		return $validationMethods;
 	}
 }
