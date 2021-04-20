@@ -7,15 +7,31 @@ You can install this plugin into your CakePHP application using [composer](https
 The recommended way to install the composer packages is:
 
 ```
-composer require pggns/cakephp-cleaner-bake
+composer require --dev pggns/cakephp-cleaner-bake
 ```
+
+Then add the following line to `src/Application.php`:
+
+```
+$this->addPlugin('Pggns/CleanerBake');
+```
+
+## How to use the templates?
+
+To automatically use the templates in every bake command, add the following line to your `config/bootstrap.php`:
+
+```
+Configure::write('Bake.theme', 'Pggns/CleanerBake');
+```
+
+To manually use them in only some bake commands, just add `--theme Pggns/CleanerBake`.
 
 ## What do the templates change?
 
 These templates don't change the output in a functional way, only cosmetic changes are made:
 
 - Replaces 4 spaces with tabs
-- Moves opening brackets `{` behind the above line
+- Moves opening brackets `{` to the end of the line
 - Aligns arrays
 - Add some new lines to make the files more organized
 - Some other minor changes
@@ -148,13 +164,3 @@ class User extends Entity {
     ];
 }
 ```
-
-## How to use the templates?
-
-To automatically use the templates in every bake command, add the following line to your `config/bootstrap.php`:
-
-```
-Configure::write('Bake.theme', 'Pggns/CleanerBake');
-```
-
-To manually use them, add `--theme Pggns/CleanerBake` to your bake command.
