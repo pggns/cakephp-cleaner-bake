@@ -167,21 +167,22 @@ class BakeFixHelper extends Helper {
 					$formatTemplate,
 					$rule['rule'],
 					$field,
-					$this->stringifyList(
-						$rule['args'],
-						[
-							'indent'	=>	false,
-							'quotes'	=>	false,
-						]
-					)
+					$this->stringifyList($rule['args'],[
+						'indent'	=>	false,
+						'quotes'	=>	false,
+					])
 				);
 			} elseif($rule['rule']&&isset($rule['provider'])) {
 				$validationMethods[]	=	sprintf(
-					"->add('%s', '%s', ['rule' => '%s', 'provider' => '%s'])",
+					"->add('%s', '%s', [%s])",
 					$field,
 					$ruleName,
-					$rule['rule'],
-					$rule['provider']
+					$this->stringifyList([
+						'rule'		=>	$rule['rule'],
+						'provider'	=>	$rule['provider'],
+					], [
+						'indent'	=>	4,
+					])
 				);
 			}
 		}
