@@ -41,7 +41,7 @@
 	{%- set otherName = Bake.getAssociatedTableAlias(modelObj, assoc) %}
 	{%- set otherPlural = otherName|variable %}
 		${{ otherPlural }}	=	$this->{{ currentModelName }}->{{ otherName }}->find('list', [
-			'limit' => 200,
+			'limit'	=>	200,
 		]);
 		{{- "\n" }}
 	{%- set compact = compact|merge(["'#{otherPlural}'"]) %}

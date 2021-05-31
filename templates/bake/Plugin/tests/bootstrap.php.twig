@@ -29,7 +29,7 @@ $findRoot	=	function ($root) {
 	do {
 		$lastRoot	=	$root;
 		$root		=	dirname($root);
-		if (is_dir($root.'/vendor/cakephp/cakephp')) {
+		if(is_dir($root.'/vendor/cakephp/cakephp')) {
 			return $root;
 		}
 	} while($root !== $lastRoot);

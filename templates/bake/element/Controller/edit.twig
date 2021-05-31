@@ -25,7 +25,7 @@
 	 */
 	public function edit($id = null) {
 		${{ singularName }}	=	$this->{{ currentModelName }}->get($id, [
-			'contain' => [{{ BakeFix.stringifyList(belongsToMany, {'indent': 4})|raw }}],
+			'contain'	=>	{{ Bake.exportArray(belongsToMany)|raw }},
 		]);
 		
 		if($this->request->is(['patch', 'post', 'put'])) {
@@ -34,7 +34,9 @@
 			if($this->{{ currentModelName }}->save(${{ singularName }})) {
 				$this->Flash->success(__('The {{ singularHumanName|lower }} has been saved.'));
 				
-				return $this->redirect(['action' => 'index']);
+				return $this->redirect([
+					'action'	=>	'index',
+				]);
 			}
 			
 			$this->Flash->error(__('The {{ singularHumanName|lower }} could not be saved. Please, try again.'));
@@ -44,7 +46,7 @@
 	{%- set otherName = Bake.getAssociatedTableAlias(modelObj, assoc) %}
 	{%- set otherPlural = otherName|variable %}
 		${{ otherPlural }}	=	$this->{{ currentModelName }}->{{ otherName }}->find('list', [
-			'limit' => 200
+			'limit'	=>	200,
 		]);
 		{{- "\n" }}
 	{%- set compact = compact|merge(["'#{otherPlural}'"]) %}

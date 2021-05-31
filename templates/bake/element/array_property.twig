@@ -3,4 +3,4 @@
 	 *
 	 * @var array
 	 */
-	public ${{ name }}	=	[{{ BakeFix.stringifyList(value, {'indent': 2})|raw }}];
+	public ${{ name }}	=	{{ Bake.exportArray(value)|raw }};
