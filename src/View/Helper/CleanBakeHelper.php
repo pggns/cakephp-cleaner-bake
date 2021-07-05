@@ -4,14 +4,15 @@ declare(strict_types=1);
 namespace Pggns\CleanerBake\View\Helper;
 
 use Bake\Utility\Model\AssociationFilter;
+use Bake\View\Helper\BakeHelper;
+use Brick\VarExporter\VarExporter;
 use Cake\Core\Configure;
 use Cake\Core\ConventionsTrait;
-use Cake\View\Helper;
 
 /**
- * BakeFix helper
+ * Clean Bake helper
  */
-class BakeFixHelper extends Helper {
+class CleanBakeHelper extends BakeHelper {
 	use ConventionsTrait;
 	
 	/**
@@ -36,14 +37,7 @@ class BakeFixHelper extends Helper {
 	 * @return string
 	 */
 	public function stringifyList(array $list, array $options = []): string {
-		$defaults	=	[
-			'indent'		=>	Configure::read('Pggns.CleanerBake.stringifyList.indent'),
-			'tab'			=>	Configure::read('Pggns.CleanerBake.stringifyList.tab'),
-			'tabLength'		=>	Configure::read('Pggns.CleanerBake.stringifyList.tabLength'),
-			'trailingComma'	=>	Configure::read('Pggns.CleanerBake.stringifyList.trailingComma'),
-			'quotes'		=>	Configure::read('Pggns.CleanerBake.stringifyList.quotes'),
-			'align'			=>	Configure::read('Pggns.CleanerBake.stringifyList.align'),
-		];
+		$defaults	=	Configure::read('Pggns.CleanerBake.stringifyList');
 		
 		$options	=	array_merge($defaults, $options);
 		
@@ -108,6 +102,10 @@ class BakeFixHelper extends Helper {
 								$this->stringifyList($v, $nestedOptions)
 							);
 				} else {
+					if(is_bool($v)) {
+						$v	=	$v ? 'true' : 'false';
+					}
+					
 					$v	=	"'$k'$tabs=>$tab$v";
 				}
 			} elseif(is_array($v)) {
@@ -141,52 +139,5 @@ class BakeFixHelper extends Helper {
 		}
 		
 		return $start.implode($join, $list).$end;
-	}
-	
-	/**
-	 * Get validation methods data.
-	 *
-	 * @param string $field Field name.
-	 * @param array $rules Validation rules list.
-	 * @return string[]
-	 */
-	public function getValidationMethods(string $field, array $rules): array {
-		$validationMethods	=	[];
-		
-		foreach($rules AS $ruleName => $rule) {
-			if($rule['rule']&&!isset($rule['provider'])&&!isset($rule['args'])) {
-				$validationMethods[]	=	sprintf("->%s('%s')", $rule['rule'], $field);
-			} elseif($rule['rule']&&!isset($rule['provider'])) {
-				$formatTemplate	=	"->%s('%s')";
-				
-				if(!empty($rule['args'])) {
-					$formatTemplate	=	"->%s('%s', %s)";
-				}
-				
-				$validationMethods[]	=	sprintf(
-					$formatTemplate,
-					$rule['rule'],
-					$field,
-					$this->stringifyList($rule['args'],[
-						'indent'	=>	false,
-						'quotes'	=>	false,
-					])
-				);
-			} elseif($rule['rule']&&isset($rule['provider'])) {
-				$validationMethods[]	=	sprintf(
-					"->add('%s', '%s', [%s])",
-					$field,
-					$ruleName,
-					$this->stringifyList([
-						'rule'		=>	$rule['rule'],
-						'provider'	=>	$rule['provider'],
-					], [
-						'indent'	=>	4,
-					])
-				);
-			}
-		}
-		
-		return $validationMethods;
 	}
 }

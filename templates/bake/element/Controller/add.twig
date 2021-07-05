@@ -36,11 +36,11 @@
 			$this->Flash->error(__('The {{ singularHumanName|lower }} could not be saved. Please, try again.'));
 		}
 		
-{% set associations = Bake.aliasExtractor(modelObj, 'BelongsTo') %}
-{% set associations = associations|merge(Bake.aliasExtractor(modelObj, 'BelongsToMany')) %}
+{% set associations = CleanBake.aliasExtractor(modelObj, 'BelongsTo') %}
+{% set associations = associations|merge(CleanBake.aliasExtractor(modelObj, 'BelongsToMany')) %}
 		
 {%- for assoc in associations %}
-	{%- set otherName = Bake.getAssociatedTableAlias(modelObj, assoc) %}
+	{%- set otherName = CleanBake.getAssociatedTableAlias(modelObj, assoc) %}
 	{%- set otherPlural = otherName|variable %}
 		${{ otherPlural }}	=	$this->{{ currentModelName }}->{{ otherName }}->find('list', [
 			'limit'	=>	200,

@@ -13,7 +13,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 #}
-{% set fields = Bake.filterFields(fields, schema, modelObject) %}
+{% set fields = CleanBake.filterFields(fields, schema, modelObject) %}
 <div class="row">
 	<aside class="column">
 		<div class="side-nav">
@@ -52,7 +52,7 @@
 {% for field in fields %}
 {%- if field not in primaryKey %}
 	{%- if keyFields[field] is defined %}
-		{%- set fieldData = Bake.columnData(field, schema) %}
+		{%- set fieldData = CleanBake.columnData(field, schema) %}
 		{%- if fieldData.null %}
 					<?=$this->Form->control('{{ field }}', [
 						'options'	=>	${{ keyFields[field] }},
@@ -66,7 +66,7 @@
 					{{- "\n" }}
 		{%- endif %}
 	{%- elseif field not in ['created', 'modified', 'updated'] %}
-		{%- set fieldData = Bake.columnData(field, schema) %}
+		{%- set fieldData = CleanBake.columnData(field, schema) %}
 		{%- if fieldData.type in ['date', 'datetime', 'time'] and fieldData.null %}
 					<?=$this->Form->control('{{ field }}', [
 						'empty'	=>	true,

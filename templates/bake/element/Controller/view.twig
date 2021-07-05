@@ -13,10 +13,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 #}
-{% set allAssociations = Bake.aliasExtractor(modelObj, 'BelongsTo') %}
-{% set allAssociations = allAssociations|merge(Bake.aliasExtractor(modelObj, 'BelongsToMany')) %}
-{% set allAssociations = allAssociations|merge(Bake.aliasExtractor(modelObj, 'HasOne')) %}
-{% set allAssociations = allAssociations|merge(Bake.aliasExtractor(modelObj, 'HasMany')) %}
+{% set allAssociations = CleanBake.aliasExtractor(modelObj, 'BelongsTo') %}
+{% set allAssociations = allAssociations|merge(CleanBake.aliasExtractor(modelObj, 'BelongsToMany')) %}
+{% set allAssociations = allAssociations|merge(CleanBake.aliasExtractor(modelObj, 'HasOne')) %}
+{% set allAssociations = allAssociations|merge(CleanBake.aliasExtractor(modelObj, 'HasMany')) %}
 	/**
 	 * View method
 	 *
@@ -26,7 +26,7 @@
 	 */
 	public function view($id = null) {
 		${{ singularName }}	=	$this->{{ currentModelName }}->get($id, [
-			'contain'	=>	[{{ BakeFix.stringifyList(allAssociations, {'indent': 4})|raw }}],
+			'contain'	=>	[{{ CleanBake.stringifyList(allAssociations, {'indent': 4})|raw }}],
 		]);
 		
 		$this->set(compact('{{ singularName }}'));

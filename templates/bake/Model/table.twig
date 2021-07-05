@@ -43,7 +43,7 @@ class {{ name }}Table extends Table {
 		
 {%- if primaryKey %}
 	{%- if primaryKey is iterable and primaryKey|length > 1 %}
-		$this->setPrimaryKey([{{ BakeFix.stringifyList(primaryKey, {'indent': 3})|raw }}]);
+		$this->setPrimaryKey([{{ CleanBake.stringifyList(primaryKey, {'indent': 3})|raw }}]);
 		{{- "\n" }}
 	{%- else %}
 		$this->setPrimaryKey('{{ primaryKey|as_array|first }}');
@@ -56,7 +56,7 @@ class {{ name }}Table extends Table {
 {% endif %}
 		
 {%- for behavior, behaviorData in behaviors %}
-		$this->addBehavior('{{ behavior }}'{{ (behaviorData ? (", [" ~ BakeFix.stringifyList(behaviorData, {'indent': 3, 'quotes': false})|raw ~ ']') : '')|raw }});
+		$this->addBehavior('{{ behavior }}'{{ (behaviorData ? (", [" ~ CleanBake.stringifyList(behaviorData, {'indent': 3, 'quotes': false})|raw ~ ']') : '')|raw }});
 {% endfor %}
 		
 {%- if associations.belongsTo or associations.hasMany or associations.belongsToMany %}
@@ -71,7 +71,7 @@ class {{ name }}Table extends Table {
 				{%- set assocData = assocData|merge({(key): val}) %}
 			{%- endif %}
 		{%- endfor %}
-		$this->{{ type }}('{{ assoc.alias }}', [{{ BakeFix.stringifyList(assocData, {'indent': 3})|raw }}]);
+		$this->{{ type }}('{{ assoc.alias }}', [{{ CleanBake.stringifyList(assocData, {'indent': 3})|raw }}]);
 		{{- "\n" }}
 	{%- endfor %}
 {% endfor %}
@@ -88,7 +88,7 @@ class {{ name }}Table extends Table {
 	 */
 	public function validationDefault(Validator $validator): Validator {
 {% for field, rules in validation %}
-{% set validationMethods = BakeFix.getValidationMethods(field, rules) %}
+{% set validationMethods = CleanBake.getValidationMethods(field, rules) %}
 {% if validationMethods %}
 		$validator
 {% for validationMethod in validationMethods %}

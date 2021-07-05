@@ -20,7 +20,7 @@
  */
 ?>
 <div class="{{ pluralVar }} index content">
-{% set fields = Bake.filterFields(fields, schema, modelObject, indexColumns, ['binary', 'text']) %}
+{% set fields = CleanBake.filterFields(fields, schema, modelObject, indexColumns, ['binary', 'text']) %}
 	<?=$this->Html->link(__('New {{ singularHumanName }}'), ['action' => 'add'], ['class' => 'button float-right'])?>
 {% set done = [] %}
 	<h3><?=__('{{ pluralHumanName }}')?></h3>
@@ -48,7 +48,7 @@
 {% endfor %}
 {% endif %}
 {% if isKey is not same as(true) %}
-{% set columnData = Bake.columnData(field, schema) %}
+{% set columnData = CleanBake.columnData(field, schema) %}
 {% if columnData.type not in ['integer', 'float', 'decimal', 'biginteger', 'smallinteger', 'tinyinteger'] %}
 						<td><?=h(${{ singularVar }}->{{ field }})?></td>
 {% else %}
