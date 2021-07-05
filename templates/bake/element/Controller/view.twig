@@ -26,7 +26,7 @@
 	 */
 	public function view($id = null) {
 		${{ singularName }}	=	$this->{{ currentModelName }}->get($id, [
-			'contain'	=>	{{ Bake.exportArray(allAssociations)|raw }},
+			'contain'	=>	[{{ BakeFix.stringifyList(allAssociations, {'indent': 4})|raw }}],
 		]);
 		
 		$this->set(compact('{{ singularName }}'));
