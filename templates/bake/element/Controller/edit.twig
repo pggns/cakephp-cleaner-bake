@@ -47,7 +47,7 @@
 	{%- set otherPlural = otherName|variable %}
 		${{ otherPlural }}	=	$this->{{ currentModelName }}->{{ otherName }}->find('list', [
 			'limit'	=>	200,
-		]);
+		])->all();
 		{{- "\n" }}
 	{%- set compact = compact|merge(["'#{otherPlural}'"]) %}
 {% endfor %}
