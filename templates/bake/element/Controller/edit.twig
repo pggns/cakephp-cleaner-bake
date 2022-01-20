@@ -13,8 +13,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 #}
-{% set belongsTo = CleanBake.aliasExtractor(modelObj, 'BelongsTo') %}
-{% set belongsToMany = CleanBake.aliasExtractor(modelObj, 'belongsToMany') %}
+{% set belongsTo = Bake.aliasExtractor(modelObj, 'BelongsTo') %}
+{% set belongsToMany = Bake.aliasExtractor(modelObj, 'belongsToMany') %}
 {% set compact = ["'#{singularName}'"] %}
 	/**
 	 * Edit method
@@ -25,7 +25,7 @@
 	 */
 	public function edit($id = null) {
 		${{ singularName }}	=	$this->{{ currentModelName }}->get($id, [
-			'contain'	=>	[{{ CleanBake.stringifyList(belongsToMany, {'indent': 4})|raw }}],
+			'contain'	=>	{{ Bake.exportArray(belongsToMany)|raw }},
 		]);
 		
 		if($this->request->is(['patch', 'post', 'put'])) {
@@ -43,7 +43,7 @@
 		}
 		
 {% for assoc in belongsTo|merge(belongsToMany) %}
-	{%- set otherName = CleanBake.getAssociatedTableAlias(modelObj, assoc) %}
+	{%- set otherName = Bake.getAssociatedTableAlias(modelObj, assoc) %}
 	{%- set otherPlural = otherName|variable %}
 		${{ otherPlural }}	=	$this->{{ currentModelName }}->{{ otherName }}->find('list', [
 			'limit'	=>	200,

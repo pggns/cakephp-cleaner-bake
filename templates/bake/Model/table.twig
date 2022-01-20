@@ -43,7 +43,7 @@ class {{ name }}Table extends Table {
 		
 {%- if primaryKey %}
 	{%- if primaryKey is iterable and primaryKey|length > 1 %}
-		$this->setPrimaryKey([{{ CleanBake.stringifyList(primaryKey, {'indent': 3})|raw }}]);
+		$this->setPrimaryKey({{ Bake.exportArray(primaryKey)|raw }});
 		{{- "\n" }}
 	{%- else %}
 		$this->setPrimaryKey('{{ primaryKey|as_array|first }}');
@@ -56,7 +56,7 @@ class {{ name }}Table extends Table {
 {% endif %}
 		
 {%- for behavior, behaviorData in behaviors %}
-		$this->addBehavior('{{ behavior }}'{{ (behaviorData ? (", [" ~ CleanBake.stringifyList(behaviorData, {'indent': 3, 'quotes': false})|raw ~ ']') : '')|raw }});
+		$this->addBehavior('{{ behavior }}'{{ (behaviorData ? (", " ~ Bake.exportArray(behaviorData, 2)|raw ~ '') : '')|raw }});
 {% endfor %}
 		
 {%- if associations.belongsTo or associations.hasMany or associations.belongsToMany %}
@@ -71,7 +71,7 @@ class {{ name }}Table extends Table {
 				{%- set assocData = assocData|merge({(key): val}) %}
 			{%- endif %}
 		{%- endfor %}
-		$this->{{ type }}('{{ assoc.alias }}', [{{ CleanBake.stringifyList(assocData, {'indent': 3})|raw }}]);
+		$this->{{ type }}('{{ assoc.alias }}', {{ Bake.exportArray(assocData, 2)|raw }});
 		{{- "\n" }}
 	{%- endfor %}
 {% endfor %}
@@ -88,7 +88,7 @@ class {{ name }}Table extends Table {
 	 */
 	public function validationDefault(Validator $validator): Validator {
 {% for field, rules in validation %}
-{% set validationMethods = CleanBake.getValidationMethods(field, rules) %}
+{% set validationMethods = Bake.getValidationMethods(field, rules) %}
 {% if validationMethods %}
 		$validator
 {% for validationMethod in validationMethods %}
@@ -118,9 +118,9 @@ class {{ name }}Table extends Table {
 {% set fields = rule.fields is defined ? Bake.exportArray(rule.fields) : Bake.exportVar(field) %}
 {% set options = '' %}
 {% for optionName, optionValue in rule.options %}
-    {%~ set options = (loop.first ? '[' : options) ~ "'#{optionName}' => " ~ Bake.exportVar(optionValue) ~ (loop.last ? ']' : ', ') %}
+	{%~ set options = (loop.first ? '[' : options) ~ "'#{optionName}' => " ~ Bake.exportVar(optionValue) ~ (loop.last ? ']' : ', ') %}
 {% endfor %}
-        $rules->add($rules->{{ rule.name }}({{ fields|raw }}{{ (rule.extra|default ? ", '#{rule.extra}'" : '')|raw }}{{ (options ? ', ' ~ options : '')|raw }}), ['errorField' => '{{ field }}']);
+		$rules->add($rules->{{ rule.name }}({{ fields|raw }}{{ (rule.extra|default ? ", '#{rule.extra}'" : '')|raw }}{{ (options ? ', ' ~ options : '')|raw }}), ['errorField' => '{{ field }}']);
 {% endfor %}
 		
 		return $rules;

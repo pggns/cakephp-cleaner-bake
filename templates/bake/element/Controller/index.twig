@@ -19,10 +19,10 @@
 	 * @return \Cake\Http\Response|null|void Renders view
 	 */
 	public function index() {
-{% set belongsTo = CleanBake.aliasExtractor(modelObj, 'BelongsTo') %}
+{% set belongsTo = Bake.aliasExtractor(modelObj, 'BelongsTo') %}
 {% if belongsTo %}
 		$this->paginate	=	[
-			'contain'	=>	[{{ CleanBake.stringifyList(belongsTo, {'indent': 4})|raw }}],
+			'contain'	=>	 Bake.exportArray(belongsTo)|raw }},
 		];
 		
 {% endif %}

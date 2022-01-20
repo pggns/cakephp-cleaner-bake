@@ -13,7 +13,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 #}
-{% set fields = CleanBake.filterFields(fields, schema, modelObject) %}
+{% set fields = Bake.filterFields(fields, schema, modelObject) %}
 <div class="row">
 	<aside class="column">
 		<div class="side-nav">
@@ -27,17 +27,17 @@
 				],
 				[
 					'confirm'	=>	__('Are you sure you want to delete # {0}?', ${{ singularVar }}->{{ primaryKey[0] }}),
-					'class'		=>	'side-nav-item',
+					'class'	=>	'side-nav-item',
 				]
 			)?>
 {% endif %}
 			<?=$this->Html->link(
 				__('List {{ pluralHumanName }}'),
 				[
-					'action'	=>	'index'
+					'action'	=>	'index',
 				],
 				[
-					'class'	=>	'side-nav-item'
+					'class'	=>	'side-nav-item',
 				]
 			)?>
 			{{- "\n" }}
@@ -52,11 +52,11 @@
 {% for field in fields %}
 {%- if field not in primaryKey %}
 	{%- if keyFields[field] is defined %}
-		{%- set fieldData = CleanBake.columnData(field, schema) %}
+		{%- set fieldData = Bake.columnData(field, schema) %}
 		{%- if fieldData.null %}
 					<?=$this->Form->control('{{ field }}', [
 						'options'	=>	${{ keyFields[field] }},
-						'empty'		=>	true,
+						'empty'	=>	true,
 					])?>
 					{{- "\n" }}
 		{%- else %}
@@ -66,7 +66,7 @@
 					{{- "\n" }}
 		{%- endif %}
 	{%- elseif field not in ['created', 'modified', 'updated'] %}
-		{%- set fieldData = CleanBake.columnData(field, schema) %}
+		{%- set fieldData = Bake.columnData(field, schema) %}
 		{%- if fieldData.type in ['date', 'datetime', 'time'] and fieldData.null %}
 					<?=$this->Form->control('{{ field }}', [
 						'empty'	=>	true,
@@ -82,9 +82,12 @@
 					
 {%- if associations.BelongsToMany is defined %}
 {%- for assocName, assocData in associations.BelongsToMany %}
-					<?=$this->Form->control('{{ assocData.property }}._ids', [
-						'options'	=>	${{ assocData.variable }},
-					])?>
+					<?=$this->Form->control(
+						'{{ assocData.property }}._ids',
+						[
+							'options'	=>	${{ assocData.variable }}
+						]
+					)?>
 					{{- "\n" }}
 {%- endfor %}
 {% endif %}

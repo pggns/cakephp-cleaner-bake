@@ -36,7 +36,7 @@ class {{ name }}Fixture extends TestFixture {
 	 */
 	public $table	=	'{{ table|raw }}';
 {% endif %}
-
+	
 {%- if import %}
 	/**
 	 * Import
@@ -44,6 +44,7 @@ class {{ name }}Fixture extends TestFixture {
 	 * @var array
 	 */
 	public $import	=	{{ import|raw }};
+	
 {% endif %}
 	
 {%- if schema %}
