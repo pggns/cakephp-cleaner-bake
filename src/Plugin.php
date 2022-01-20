@@ -16,7 +16,6 @@ class Plugin extends BasePlugin {
 		$eventManager	=	$app->getEventManager();
 		$eventManager->on('Bake.initialize', function(Event $event) {
 			$view	=	$event->getSubject();
-			$view->loadHelper('Pggns/CleanerBake.CleanBake');
 		});
 		
 		parent::bootstrap($app);
