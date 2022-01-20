@@ -20,7 +20,7 @@
  */
 ?>
 {% set associations = {'BelongsTo': [], 'HasOne': [], 'HasMany': [], 'BelongsToMany': []}|merge(associations) %}
-{% set fieldsData = CleanBake.getViewFieldsData(fields, schema, associations) %}
+{% set fieldsData = Bake.getViewFieldsData(fields, schema, associations) %}
 {% set associationFields = fieldsData.associationFields %}
 {% set groupedFields = fieldsData.groupedFields %}
 {% set pK = '$' ~ singularVar ~ '->' ~ primaryKey[0] %}
@@ -47,11 +47,14 @@
 					<th><?=__('{{ details.property|humanize }}')?></th>
 					<td>
 						<?php if(${{ singularVar }}->has('{{ details.property }}')) { ?>
-							<?=$this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, [
-								'controller'	=>	'{{ details.controller }}',
-								'action'		=>	'view',
-								${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}
-							])?>
+							<?=$this->Html->link(
+								${{ singularVar }}->{{ details.property }}->{{ details.displayField }},
+								[
+									'controller'	=>	'{{ details.controller }}',
+									'action'	=>	'view',
+									${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}
+								]
+							)?>
 						<?php } ?>
 					</td>
 				</tr>
@@ -67,14 +70,16 @@
 {% for alias, details in associations.HasOne %}
 				<tr>
 					<th><?=__('{{ alias|underscore|singularize|humanize }}')?></th>
-					<td><?=${{ singularVar }}->has('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
 					<td>
-						<?php if(${{ singularVar }}->has('{{ details.property }}')) { ?>
-							<?=$this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, [
-								'controller'	=>	'{{ details.controller }}',
-								'action'		=>	'view',
-								${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}
-							])?>
+						<?php if(${{ singularVar }}->has('{{ details.property }}')) {
+							<?=$this->Html->link(
+								${{ singularVar }}->{{ details.property }}->{{ details.displayField }},
+								[
+									'controller'	=>	'{{ details.controller }}',
+									'action'	=>	'view',
+									${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}
+								]
+							)?>
 						<?php } ?>
 					</td>
 				</tr>
@@ -137,9 +142,33 @@
 {% endfor %}
 {% set otherPk = '$' ~ otherSingularVar ~ '->' ~ details.primaryKey[0] %}
 									<td class="actions">
-										<?=$this->Html->link(__('View'), ['controller' => '{{ details.controller }}', 'action' => 'view', {{ otherPk|raw }}])?>
-										<?=$this->Html->link(__('Edit'), ['controller' => '{{ details.controller }}', 'action' => 'edit', {{ otherPk|raw }}])?>
-										<?=$this->Form->postLink(__('Delete'), ['controller' => '{{ details.controller }}', 'action' => 'delete', {{ otherPk|raw }}], ['confirm' => __('Are you sure you want to delete # {0}?', {{ otherPk|raw }})])?>
+										<?=$this->Html->link(
+											__('View'),
+											[
+												'controller'	=>	'{{ details.controller }}',
+												'action'	=>	'view',
+												{{ otherPk|raw }}
+											]
+										)?>
+										<?=$this->Html->link(
+											__('Edit'),
+											[
+												'controller'	=>	'{{ details.controller }}',
+												'action'	=>	'edit',
+												{{ otherPk|raw }}
+											]
+										)?>
+										<?=$this->Form->postLink(
+											__('Delete'),
+											[
+												'controller'	=>	'{{ details.controller }}',
+												'action'	=>	'delete',
+												{{ otherPk|raw }}
+											],
+											[
+												'confirm'	=>	__('Are you sure you want to delete # {0}?', {{ otherPk|raw }})
+											]
+										)?>
 									</td>
 								</tr>
 							<?php } ?>
