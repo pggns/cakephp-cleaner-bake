@@ -8,16 +8,16 @@ use Cake\Core\PluginApplicationInterface;
 use Cake\Event\Event;
 
 class Plugin extends BasePlugin {
-	/**
-	 * @param \Cake\Core\PluginApplicationInterface $app PluginApplicationInterface
-	 * @return void
-	 */
-	public function bootstrap(PluginApplicationInterface $app): void {
-		$eventManager	=	$app->getEventManager();
-		$eventManager->on('Bake.initialize', function(Event $event) {
-			$view	=	$event->getSubject();
-		});
-		
-		parent::bootstrap($app);
-	}
+    /**
+     * @param \Cake\Core\PluginApplicationInterface $app PluginApplicationInterface
+     * @return void
+     */
+    public function bootstrap(PluginApplicationInterface $app): void {
+        $eventManager = $app->getEventManager();
+        $eventManager->on('Bake.initialize', function(Event $event) {
+            $view = $event->getSubject();
+        });
+        
+        parent::bootstrap($app);
+    }
 }

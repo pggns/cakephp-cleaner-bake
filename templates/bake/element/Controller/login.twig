@@ -13,22 +13,22 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 #}
-	/**
-	 * Login method
-	 *
-	 * @return \Cake\Http\Response|null|void Renders view
-	 */
-	public function login() {
-		if($this->request->is('post')) {
-			$user = $this->Auth->identify();
-			
-			if($user) {
-				$this->Auth->setUser($user);
-				
-				return $this->redirect($this->Auth->redirectUrl());
-			}
-			
-			$this->Flash->error(__('Invalid credentials, try again'));
-		}
-	}
-	
+    /**
+     * Login method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function login() {
+        if($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            
+            if($user) {
+                $this->Auth->setUser($user);
+                
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            
+            $this->Flash->error(__('Invalid credentials, try again'));
+        }
+    }
+    

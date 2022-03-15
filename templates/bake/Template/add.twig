@@ -17,18 +17,18 @@
 /**
  * @var \{{ namespace }}\View\AppView $this
  * @var \{{ entityClass }} ${{ singularVar }}
-		{{- "\n" }}
+        {{- "\n" }}
 {%- if associations.BelongsTo is defined %}
-	{%- for assocName, assocData in associations.BelongsTo %}
+    {%- for assocName, assocData in associations.BelongsTo %}
  * @var \Cake\Collection\CollectionInterface|string[] ${{ assocData.variable }}
-		{{- "\n" }}
-	{%- endfor %}
+        {{- "\n" }}
+    {%- endfor %}
 {% endif %}
 {%- if associations.BelongsToMany is defined %}
-	{%- for assocName, assocData in associations.BelongsToMany %}
+    {%- for assocName, assocData in associations.BelongsToMany %}
  * @var \Cake\Collection\CollectionInterface|string[] ${{ assocData.variable }}
-		{{- "\n" }}
-	{%- endfor %}
+        {{- "\n" }}
+    {%- endfor %}
 {% endif %}
  */
 ?>

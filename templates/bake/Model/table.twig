@@ -24,118 +24,118 @@ namespace {{ namespace }}\Model\Table;
 
 {{ DocBlock.classDescription(name, 'Model', annotations)|raw }}
 class {{ name }}Table extends Table {
-	/**
-	 * Initialize method
-	 *
-	 * @param array $config The configuration for the Table.
-	 * @return void
-	 */
-	public function initialize(array $config): void {
-		parent::initialize($config);
-		
+    /**
+     * Initialize method
+     *
+     * @param array $config The configuration for the Table.
+     * @return void
+     */
+    public function initialize(array $config): void {
+        parent::initialize($config);
+        
 {% if table %}
-		$this->setTable('{{ table }}');
+        $this->setTable('{{ table }}');
 {% endif %}
-		
+        
 {%- if displayField %}
-		$this->setDisplayField({{ (displayField is iterable ? Bake.exportArray(displayField) : Bake.exportVar(displayField))|raw }});
+        $this->setDisplayField({{ (displayField is iterable ? Bake.exportArray(displayField) : Bake.exportVar(displayField))|raw }});
 {% endif %}
-		
+        
 {%- if primaryKey %}
-	{%- if primaryKey is iterable and primaryKey|length > 1 %}
-		$this->setPrimaryKey({{ Bake.exportArray(primaryKey)|raw }});
-		{{- "\n" }}
-	{%- else %}
-		$this->setPrimaryKey('{{ primaryKey|as_array|first }}');
-		{{- "\n" }}
-	{%- endif %}
+    {%- if primaryKey is iterable and primaryKey|length > 1 %}
+        $this->setPrimaryKey({{ Bake.exportArray(primaryKey)|raw }});
+        {{- "\n" }}
+    {%- else %}
+        $this->setPrimaryKey('{{ primaryKey|as_array|first }}');
+        {{- "\n" }}
+    {%- endif %}
 {% endif %}
-		
+        
 {%- if behaviors %}
-		
+        
 {% endif %}
-		
+        
 {%- for behavior, behaviorData in behaviors %}
-		$this->addBehavior('{{ behavior }}'{{ (behaviorData ? (", " ~ Bake.exportArray(behaviorData, 2)|raw ~ '') : '')|raw }});
+        $this->addBehavior('{{ behavior }}'{{ (behaviorData ? (", " ~ Bake.exportArray(behaviorData, 2)|raw ~ '') : '')|raw }});
 {% endfor %}
-		
+        
 {%- if associations.belongsTo or associations.hasMany or associations.belongsToMany %}
-		
+        
 {% endif %}
-		
+        
 {%- for type, assocs in associations %}
-	{%- for assoc in assocs %}
-		{%- set assocData = [] %}
-		{%- for key, val in assoc %}
-			{%- if key is not same as('alias') %}
-				{%- set assocData = assocData|merge({(key): val}) %}
-			{%- endif %}
-		{%- endfor %}
-		$this->{{ type }}('{{ assoc.alias }}', {{ Bake.exportArray(assocData, 2)|raw }});
-		{{- "\n" }}
-	{%- endfor %}
+    {%- for assoc in assocs %}
+        {%- set assocData = [] %}
+        {%- for key, val in assoc %}
+            {%- if key is not same as('alias') %}
+                {%- set assocData = assocData|merge({(key): val}) %}
+            {%- endif %}
+        {%- endfor %}
+        $this->{{ type }}('{{ assoc.alias }}', {{ Bake.exportArray(assocData, 2)|raw }});
+        {{- "\n" }}
+    {%- endfor %}
 {% endfor %}
-	}
+    }
 {{- "\n" }}
-	
+    
 {%- if validation %}
-	
-	/**
-	 * Default validation rules.
-	 *
-	 * @param \Cake\Validation\Validator $validator Validator instance.
-	 * @return \Cake\Validation\Validator
-	 */
-	public function validationDefault(Validator $validator): Validator {
+    
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator): Validator {
 {% for field, rules in validation %}
 {% set validationMethods = Bake.getValidationMethods(field, rules) %}
 {% if validationMethods %}
-		$validator
+        $validator
 {% for validationMethod in validationMethods %}
 {% if loop.last %}
 {% set validationMethod = validationMethod ~ ';' %}
 {% endif %}
-			{{ validationMethod|raw }}
+            {{ validationMethod|raw }}
 {% endfor %}
-		
+        
 {% endif %}
 {% endfor %}
-		return $validator;
-	}
+        return $validator;
+    }
 {% endif %}
-	
+    
 {%- if rulesChecker %}
-	
-	/**
-	 * Returns a rules checker object that will be used for validating
-	 * application integrity.
-	 *
-	 * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-	 * @return \Cake\ORM\RulesChecker
-	 */
-	public function buildRules(RulesChecker $rules): RulesChecker {
+    
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker {
 {% for field, rule in rulesChecker %}
 {% set fields = rule.fields is defined ? Bake.exportArray(rule.fields) : Bake.exportVar(field) %}
 {% set options = '' %}
 {% for optionName, optionValue in rule.options %}
-	{%~ set options = (loop.first ? '[' : options) ~ "'#{optionName}' => " ~ Bake.exportVar(optionValue) ~ (loop.last ? ']' : ', ') %}
+    {%~ set options = (loop.first ? '[' : options) ~ "'#{optionName}' => " ~ Bake.exportVar(optionValue) ~ (loop.last ? ']' : ', ') %}
 {% endfor %}
-		$rules->add($rules->{{ rule.name }}({{ fields|raw }}{{ (rule.extra|default ? ", '#{rule.extra}'" : '')|raw }}{{ (options ? ', ' ~ options : '')|raw }}), ['errorField' => '{{ field }}']);
+        $rules->add($rules->{{ rule.name }}({{ fields|raw }}{{ (rule.extra|default ? ", '#{rule.extra}'" : '')|raw }}{{ (options ? ', ' ~ options : '')|raw }}), ['errorField' => '{{ field }}']);
 {% endfor %}
-		
-		return $rules;
-	}
+        
+        return $rules;
+    }
 {% endif %}
-	
+    
 {%- if connection is not same as('default') %}
-	
-	/**
-	 * Returns the database connection name to use by default.
-	 *
-	 * @return string
-	 */
-	public static function defaultConnectionName(): string {
-		return '{{ connection }}';
-	}
+    
+    /**
+     * Returns the database connection name to use by default.
+     *
+     * @return string
+     */
+    public static function defaultConnectionName(): string {
+        return '{{ connection }}';
+    }
 {% endif %}
 }
