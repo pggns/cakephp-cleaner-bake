@@ -71,7 +71,7 @@
                 <tr>
                     <th><?=__('{{ alias|underscore|singularize|humanize }}')?></th>
                     <td>
-                        <?php if(${{ singularVar }}->has('{{ details.property }}')) {
+                        <?php if({{ singularVar }}->has('{{ details.property }}')) { ?>
                             <?=$this->Html->link(
                                 ${{ singularVar }}->{{ details.property }}->{{ details.displayField }},
                                 [
@@ -89,7 +89,12 @@
 {% for field in groupedFields.number %}
                 <tr>
                     <th><?=__('{{ field|humanize }}')?></th>
+{% set columnData = Bake.columnData(field, schema) %}
+{% if columnData.null %}
+                    <td><?=${{ singularVar }}->{{ field }} === null ? '' : $this->Number->format(${{ singularVar }}->{{ field }})?></td>
+{% else %}
                     <td><?=$this->Number->format(${{ singularVar }}->{{ field }})?></td>
+{% endif %}
                 </tr>
 {% endfor %}
 {% endif %}
@@ -147,7 +152,7 @@
                                             [
                                                 'controller' => '{{ details.controller }}',
                                                 'action' => 'view',
-                                                {{ otherPk|raw }}
+                                                {{ otherPk|raw }},
                                             ]
                                         )?>
                                         <?=$this->Html->link(
@@ -155,7 +160,7 @@
                                             [
                                                 'controller' => '{{ details.controller }}',
                                                 'action' => 'edit',
-                                                {{ otherPk|raw }}
+                                                {{ otherPk|raw }},
                                             ]
                                         )?>
                                         <?=$this->Form->postLink(
@@ -163,10 +168,11 @@
                                             [
                                                 'controller' => '{{ details.controller }}',
                                                 'action' => 'delete',
-                                                {{ otherPk|raw }}
+                                                {{ otherPk|raw }},
                                             ],
                                             [
-                                                'confirm' => __('Are you sure you want to delete # {0}?', {{ otherPk|raw }})
+                                                'confirm' => __('Are you sure you want to delete # {0}?',
+                                                {{ otherPk|raw }}),
                                             ]
                                         )?>
                                     </td>

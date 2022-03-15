@@ -82,12 +82,9 @@
                     
 {%- if associations.BelongsToMany is defined %}
 {%- for assocName, assocData in associations.BelongsToMany %}
-                    <?=$this->Form->control(
-                        '{{ assocData.property }}._ids',
-                        [
-                            'options' => ${{ assocData.variable }}
-                        ]
-                    )?>
+                    <?=$this->Form->control('{{ assocData.property }}._ids', [
+                        'options' => ${{ assocData.variable }},
+                    ])?>
                     {{- "\n" }}
 {%- endfor %}
 {% endif %}
