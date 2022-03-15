@@ -50,8 +50,8 @@
 							<?=$this->Html->link(
 								${{ singularVar }}->{{ details.property }}->{{ details.displayField }},
 								[
-									'controller'	=>	'{{ details.controller }}',
-									'action'	=>	'view',
+									'controller' => '{{ details.controller }}',
+									'action' => 'view',
 									${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}
 								]
 							)?>
@@ -75,8 +75,8 @@
 							<?=$this->Html->link(
 								${{ singularVar }}->{{ details.property }}->{{ details.displayField }},
 								[
-									'controller'	=>	'{{ details.controller }}',
-									'action'	=>	'view',
+									'controller' => '{{ details.controller }}',
+									'action' => 'view',
 									${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}
 								]
 							)?>
@@ -145,28 +145,28 @@
 										<?=$this->Html->link(
 											__('View'),
 											[
-												'controller'	=>	'{{ details.controller }}',
-												'action'	=>	'view',
+												'controller' => '{{ details.controller }}',
+												'action' => 'view',
 												{{ otherPk|raw }}
 											]
 										)?>
 										<?=$this->Html->link(
 											__('Edit'),
 											[
-												'controller'	=>	'{{ details.controller }}',
-												'action'	=>	'edit',
+												'controller' => '{{ details.controller }}',
+												'action' => 'edit',
 												{{ otherPk|raw }}
 											]
 										)?>
 										<?=$this->Form->postLink(
 											__('Delete'),
 											[
-												'controller'	=>	'{{ details.controller }}',
-												'action'	=>	'delete',
+												'controller' => '{{ details.controller }}',
+												'action' => 'delete',
 												{{ otherPk|raw }}
 											],
 											[
-												'confirm'	=>	__('Are you sure you want to delete # {0}?', {{ otherPk|raw }})
+												'confirm' => __('Are you sure you want to delete # {0}?', {{ otherPk|raw }})
 											]
 										)?>
 									</td>

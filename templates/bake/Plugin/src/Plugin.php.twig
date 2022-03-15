@@ -53,7 +53,7 @@ class Plugin extends BasePlugin {
 		$routes->plugin(
 			'{{ plugin }}',
 			[
-				'path'	=>	'/{{ routePath }}',
+				'path' => '/{{ routePath }}',
 			],
 			function(RouteBuilder $builder) {
 				// Add custom routes here
@@ -86,7 +86,7 @@ class Plugin extends BasePlugin {
 	public function console(CommandCollection $commands) : CommandCollection {
 		// Add your commands here
 		
-		$commands	=	parent::console($commands);
+		$commands = parent::console($commands);
 		
 		return $commands;
 	}

@@ -22,22 +22,22 @@
 			<?=$this->Form->postLink(
 				__('Delete'),
 				[
-					'action'	=>	'delete',
+					'action' => 'delete',
 					${{ singularVar }}->{{ primaryKey[0] }},
 				],
 				[
-					'confirm'	=>	__('Are you sure you want to delete # {0}?', ${{ singularVar }}->{{ primaryKey[0] }}),
-					'class'	=>	'side-nav-item',
+					'confirm' => __('Are you sure you want to delete # {0}?', ${{ singularVar }}->{{ primaryKey[0] }}),
+					'class' => 'side-nav-item',
 				]
 			)?>
 {% endif %}
 			<?=$this->Html->link(
 				__('List {{ pluralHumanName }}'),
 				[
-					'action'	=>	'index',
+					'action' => 'index',
 				],
 				[
-					'class'	=>	'side-nav-item',
+					'class' => 'side-nav-item',
 				]
 			)?>
 			{{- "\n" }}
@@ -55,13 +55,13 @@
 		{%- set fieldData = Bake.columnData(field, schema) %}
 		{%- if fieldData.null %}
 					<?=$this->Form->control('{{ field }}', [
-						'options'	=>	${{ keyFields[field] }},
-						'empty'	=>	true,
+						'options' => ${{ keyFields[field] }},
+						'empty' => true,
 					])?>
 					{{- "\n" }}
 		{%- else %}
 					<?=$this->Form->control('{{ field }}', [
-						'options'	=>	${{ keyFields[field] }},
+						'options' => ${{ keyFields[field] }},
 					])?>
 					{{- "\n" }}
 		{%- endif %}
@@ -69,7 +69,7 @@
 		{%- set fieldData = Bake.columnData(field, schema) %}
 		{%- if fieldData.type in ['date', 'datetime', 'time'] and fieldData.null %}
 					<?=$this->Form->control('{{ field }}', [
-						'empty'	=>	true,
+						'empty' => true,
 					])?>
 					{{- "\n" }}
 		{%- else %}
@@ -85,7 +85,7 @@
 					<?=$this->Form->control(
 						'{{ assocData.property }}._ids',
 						[
-							'options'	=>	${{ assocData.variable }}
+							'options' => ${{ assocData.variable }}
 						]
 					)?>
 					{{- "\n" }}

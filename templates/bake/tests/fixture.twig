@@ -34,7 +34,7 @@ class {{ name }}Fixture extends TestFixture {
 	 *
 	 * @var string
 	 */
-	public $table	=	'{{ table|raw }}';
+	public $table = '{{ table|raw }}';
 {% endif %}
 	
 {%- if import %}
@@ -43,7 +43,7 @@ class {{ name }}Fixture extends TestFixture {
 	 *
 	 * @var array
 	 */
-	public $import	=	{{ import|raw }};
+	public $import = {{ import|raw }};
 	
 {% endif %}
 	
@@ -54,7 +54,7 @@ class {{ name }}Fixture extends TestFixture {
 	 * @var array
 	 */
 	// phpcs:disable
-	public $fields	=	{{ schema|raw }};
+	public $fields = {{ schema|raw }};
 	// phpcs:enable
 {% endif %}
 	
@@ -65,7 +65,7 @@ class {{ name }}Fixture extends TestFixture {
 	 * @return void
 	 */
 	public function init(): void {
-		$this->records	=	{{ records|raw }};
+		$this->records = {{ records|raw }};
 		
 		parent::init();
 	}

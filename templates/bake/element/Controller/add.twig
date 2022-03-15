@@ -20,16 +20,16 @@
 	 * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
 	 */
 	public function add() {
-		${{ singularName }}	=	$this->{{ currentModelName }}->newEmptyEntity();
+		${{ singularName }} = $this->{{ currentModelName }}->newEmptyEntity();
 		
 		if($this->request->is('post')) {
-			${{ singularName }}	=	$this->{{ currentModelName }}->patchEntity(${{ singularName }}, $this->request->getData());
+			${{ singularName }} = $this->{{ currentModelName }}->patchEntity(${{ singularName }}, $this->request->getData());
 			
 			if($this->{{ currentModelName }}->save(${{ singularName }})) {
 				$this->Flash->success(__('The {{ singularHumanName|lower }} has been saved.'));
 				
 				return $this->redirect([
-					'action'	=>	'index'
+					'action' => $this->request->getData('action') ?? 'index',
 				]);
 			}
 			
@@ -42,8 +42,8 @@
 {%- for assoc in associations %}
 	{%- set otherName = Bake.getAssociatedTableAlias(modelObj, assoc) %}
 	{%- set otherPlural = otherName|variable %}
-		${{ otherPlural }}	=	$this->{{ currentModelName }}->{{ otherName }}->find('list', [
-			'limit'	=>	200,
+		${{ otherPlural }} = $this->{{ currentModelName }}->{{ otherName }}->find('list', [
+			'limit' => 200,
 		])->all();
 		{{- "\n" }}
 	{%- set compact = compact|merge(["'#{otherPlural}'"]) %}

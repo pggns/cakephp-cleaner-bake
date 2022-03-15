@@ -21,12 +21,12 @@
 	public function index() {
 {% set belongsTo = Bake.aliasExtractor(modelObj, 'BelongsTo') %}
 {% if belongsTo %}
-		$this->paginate	=	[
-			'contain'	=>	{{ Bake.exportArray(belongsTo)|raw }},
+		$this->paginate = [
+			'contain' => {{ Bake.exportArray(belongsTo)|raw }},
 		];
 		
 {% endif %}
-		${{ pluralName }}	=	$this->paginate($this->{{ currentModelName }});
+		${{ pluralName }} = $this->paginate($this->{{ currentModelName }});
 		
 		$this->set(compact('{{ pluralName }}'));
 	}

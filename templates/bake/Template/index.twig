@@ -61,25 +61,25 @@
 							<?=$this->Html->link(
 								__('View'),
 								[
-									'action'	=>	'view',
+									'action' => 'view',
 									{{ pk|raw }},
 								]
 							)?>
 							<?=$this->Html->link(
 								__('Edit'),
 								[
-									'action'	=>	'edit',
+									'action' => 'edit',
 									{{ pk|raw }},
 								]
 							)?>
 							<?=$this->Form->postLink(
 								__('Delete'),
 								[
-									'action'	=>	'delete',
+									'action' => 'delete',
 									{{ pk|raw }},
 								],
 								[
-									'confirm'	=>	__('Are you sure you want to delete # {0}?',
+									'confirm' => __('Are you sure you want to delete # {0}?',
 									{{ pk|raw }}),
 								]
 							)?>

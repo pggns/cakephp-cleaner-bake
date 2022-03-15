@@ -23,7 +23,7 @@
 	public function delete($id = null) {
 		$this->request->allowMethod(['post', 'delete']);
 		
-		${{ singularName }}	=	$this->{{ currentModelName }}->get($id);
+		${{ singularName }} = $this->{{ currentModelName }}->get($id);
 		
 		if($this->{{ currentModelName }}->delete(${{ singularName }})) {
 			$this->Flash->success(__('The {{ singularHumanName|lower }} has been deleted.'));
@@ -32,7 +32,7 @@
 		}
 		
 		return $this->redirect([
-			'action'	=>	'index',
+			'action' => $this->request->getData('action') ?? 'index',
 		]);
 	}
 	
