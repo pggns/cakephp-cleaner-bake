@@ -73,7 +73,7 @@ class {{ className }}Test extends TestCase {
     /**
      * Fixtures
      *
-     * @var array
+     * @var array<string>
      */
     protected $fixtures = {{ Bake.exportVar(fixtures|values, 1)|raw }};
 {% if construction or methods %}
@@ -87,7 +87,7 @@ class {{ className }}Test extends TestCase {
      *
      * @return void
      */
-    public function setUp(): void {
+    protected function setUp(): void {
         parent::setUp();
 {% if preConstruct %}
         {{ preConstruct|raw }}
@@ -108,7 +108,7 @@ class {{ className }}Test extends TestCase {
      *
      * @return void
      */
-    public function tearDown(): void {
+    protected function tearDown(): void {
         unset($this->{{ subject }});
         
         parent::tearDown();
