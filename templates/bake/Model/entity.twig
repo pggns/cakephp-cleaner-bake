@@ -45,7 +45,7 @@ class {{ name }} extends Entity {
     protected $_accessible = {{ Bake.exportVar(accessible, 1)|raw }};
 {% endif %}
 {% if accessible and hidden %}
-    
+
 {% endif %}
 {%- if hidden %}
     /**

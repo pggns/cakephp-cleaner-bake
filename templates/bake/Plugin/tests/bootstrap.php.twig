@@ -33,7 +33,7 @@ $findRoot = function($root) {
             return $root;
         }
     } while($root !== $lastRoot);
-    
+
     throw new Exception("Cannot find the root of the application, unable to run tests");
 };
 
@@ -53,7 +53,7 @@ require_once $root.'/vendor/cakephp/cakephp/tests/bootstrap.php';
 
 if(file_exists($root.'/config/bootstrap.php')) {
     require $root.'/config/bootstrap.php';
-    
+
     return;
 }
 

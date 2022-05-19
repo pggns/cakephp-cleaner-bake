@@ -24,10 +24,9 @@
         $this->paginate = [
             'contain' => {{ Bake.exportArray(belongsTo)|raw }},
         ];
-        
+
 {% endif %}
         ${{ pluralName }} = $this->paginate($this->{{ currentModelName }});
-        
+
         $this->set(compact('{{ pluralName }}'));
     }
-    

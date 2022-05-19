@@ -51,7 +51,7 @@ class {{ name }}Controller extends AppController {
      */
     public function initialize(): void {
         parent::initialize();
-        
+
 {% for component in components %}
         $this->loadComponent('{{ component }}');
 {% endfor %}

@@ -17,7 +17,7 @@ class Plugin extends BasePlugin {
         $eventManager->on('Bake.initialize', function(Event $event) {
             $view = $event->getSubject();
         });
-        
+
         parent::bootstrap($app);
     }
 }

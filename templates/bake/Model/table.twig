@@ -32,15 +32,15 @@ class {{ name }}Table extends Table {
      */
     public function initialize(array $config): void {
         parent::initialize($config);
-        
+
 {% if table %}
         $this->setTable('{{ table }}');
 {% endif %}
-        
+
 {%- if displayField %}
         $this->setDisplayField({{ (displayField is iterable ? Bake.exportArray(displayField) : Bake.exportVar(displayField))|raw }});
 {% endif %}
-        
+
 {%- if primaryKey %}
     {%- if primaryKey is iterable and primaryKey|length > 1 %}
         $this->setPrimaryKey({{ Bake.exportArray(primaryKey)|raw }});
@@ -50,19 +50,19 @@ class {{ name }}Table extends Table {
         {{- "\n" }}
     {%- endif %}
 {% endif %}
-        
+
 {%- if behaviors %}
-        
+
 {% endif %}
-        
+
 {%- for behavior, behaviorData in behaviors %}
         $this->addBehavior('{{ behavior }}'{{ (behaviorData ? (", " ~ Bake.exportArray(behaviorData, 2)|raw ~ '') : '')|raw }});
 {% endfor %}
-        
+
 {%- if associations.belongsTo or associations.hasMany or associations.belongsToMany %}
-        
+
 {% endif %}
-        
+
 {%- for type, assocs in associations %}
     {%- for assoc in assocs %}
         {%- set assocData = [] %}
@@ -77,9 +77,9 @@ class {{ name }}Table extends Table {
 {% endfor %}
     }
 {{- "\n" }}
-    
+
 {%- if validation %}
-    
+
     /**
      * Default validation rules.
      *
@@ -97,15 +97,15 @@ class {{ name }}Table extends Table {
 {% endif %}
             {{ validationMethod|raw }}
 {% endfor %}
-        
+
 {% endif %}
 {% endfor %}
         return $validator;
     }
 {% endif %}
-    
+
 {%- if rulesChecker %}
-    
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -122,13 +122,13 @@ class {{ name }}Table extends Table {
 {% endfor %}
         $rules->add($rules->{{ rule.name }}({{ fields|raw }}{{ (rule.extra|default ? ", '#{rule.extra}'" : '')|raw }}{{ (options ? ', ' ~ options : '')|raw }}), ['errorField' => '{{ field }}']);
 {% endfor %}
-        
+
         return $rules;
     }
 {% endif %}
-    
+
 {%- if connection is not same as('default') %}
-    
+
     /**
      * Returns the database connection name to use by default.
      *

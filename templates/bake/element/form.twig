@@ -74,12 +74,12 @@
                     {{- "\n" }}
         {%- else %}
                     <?=$this->Form->control('{{ field }}')?>
-                    {{- "\n" }}
+                {{- "\n" }}
         {%- endif %}
     {%- endif %}
 {%- endif %}
 {%- endfor %}
-                    
+
 {%- if associations.BelongsToMany is defined %}
 {%- for assocName, assocData in associations.BelongsToMany %}
                     <?=$this->Form->control('{{ assocData.property }}._ids', [

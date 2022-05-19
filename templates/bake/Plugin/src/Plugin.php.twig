@@ -40,7 +40,7 @@ class Plugin extends BasePlugin {
      */
     public function bootstrap(PluginApplicationInterface $app): void {
     }
-    
+
     /**
      * Add routes for the plugin.
      *
@@ -58,26 +58,26 @@ class Plugin extends BasePlugin {
             ],
             function(RouteBuilder $builder) {
                 // Add custom routes here
-                
+
                 $builder->fallbacks();
             }
         );
-        
+
         parent::routes($routes);
     }
-    
+
     /**
      * Add middleware for the plugin.
      *
-     * @param \Cake\Http\MiddlewareQueue $middleware The middleware queue to update.
+     * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to update.
      * @return \Cake\Http\MiddlewareQueue
      */
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue {
         // Add your middlewares here
-        
+
         return $middlewareQueue;
     }
-    
+
     /**
      * Add commands for the plugin.
      *
@@ -86,12 +86,12 @@ class Plugin extends BasePlugin {
      */
     public function console(CommandCollection $commands) : CommandCollection {
         // Add your commands here
-        
+
         $commands = parent::console($commands);
-        
+
         return $commands;
     }
-    
+
     /**
      * Register application container services.
      *

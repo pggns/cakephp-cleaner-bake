@@ -19,24 +19,24 @@
     processIsolation="false"
     stopOnFailure="false"
     bootstrap="tests/bootstrap.php"
-    >
+>
     <php>
         <ini name="memory_limit" value="-1"/>
         <ini name="apc.enable_cli" value="1"/>
     </php>
-    
+
     <!-- Add any additional test suites you want to run here -->
     <testsuites>
         <testsuite name="{{ plugin }}">
             <directory>tests/TestCase/</directory>
         </testsuite>
     </testsuites>
-    
+
     <!-- Setup fixture extension -->
     <extensions>
         <extension class="Cake\TestSuite\Fixtures\PHPUnitExtension" />
     </extensions>
-    
+
     <filter>
         <whitelist>
             <directory suffix=".php">src/</directory>
