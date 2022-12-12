@@ -35,7 +35,7 @@
                 $this->Flash->success(__('The {{ singularHumanName|lower }} has been saved.'));
 
                 return $this->redirect([
-                    'action' => $this->request->getData('action') ?? 'index',
+                    'action' => 'index',
                 ]);
             }
 

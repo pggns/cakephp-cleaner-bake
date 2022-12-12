@@ -54,26 +54,26 @@
     {%- if keyFields[field] is defined %}
         {%- set fieldData = Bake.columnData(field, schema) %}
         {%- if fieldData.null %}
-                    <?=$this->Form->control('{{ field }}', [
-                        'options' => ${{ keyFields[field] }},
-                        'empty' => true,
-                    ])?>
-                    {{- "\n" }}
+                <?=$this->Form->control('{{ field }}', [
+                    'options' => ${{ keyFields[field] }},
+                    'empty' => true,
+                ])?>
+                {{- "\n" }}
         {%- else %}
-                    <?=$this->Form->control('{{ field }}', [
-                        'options' => ${{ keyFields[field] }},
-                    ])?>
-                    {{- "\n" }}
+                <?=$this->Form->control('{{ field }}', [
+                    'options' => ${{ keyFields[field] }},
+                ])?>
+                {{- "\n" }}
         {%- endif %}
     {%- elseif field not in ['created', 'modified', 'updated'] %}
         {%- set fieldData = Bake.columnData(field, schema) %}
         {%- if fieldData.type in ['date', 'datetime', 'time'] and fieldData.null %}
-                    <?=$this->Form->control('{{ field }}', [
-                        'empty' => true,
-                    ])?>
-                    {{- "\n" }}
+                <?=$this->Form->control('{{ field }}', [
+                    'empty' => true,
+                ])?>
+                {{- "\n" }}
         {%- else %}
-                    <?=$this->Form->control('{{ field }}')?>
+                <?=$this->Form->control('{{ field }}')?>
                 {{- "\n" }}
         {%- endif %}
     {%- endif %}
@@ -82,10 +82,10 @@
 
 {%- if associations.BelongsToMany is defined %}
 {%- for assocName, assocData in associations.BelongsToMany %}
-                    <?=$this->Form->control('{{ assocData.property }}._ids', [
-                        'options' => ${{ assocData.variable }},
-                    ])?>
-                    {{- "\n" }}
+                <?=$this->Form->control('{{ assocData.property }}._ids', [
+                    'options' => ${{ assocData.variable }},
+                ])?>
+                {{- "\n" }}
 {%- endfor %}
 {% endif %}
             </fieldset>
