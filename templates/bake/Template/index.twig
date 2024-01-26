@@ -1,16 +1,16 @@
 {#
 /**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link          https://cakephp.org CakePHP(tm) Project
  * @since         2.0.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @license       https://www.opensource.org/licenses/mit-license.php MIT License
  */
 #}
 <?php
@@ -28,8 +28,8 @@
         ],
         [
             'class' => 'button float-right',
-        ])?>
-
+        ]
+    )?>
 {% set done = [] %}
     <h3><?=__('{{ pluralHumanName }}')?></h3>
 
@@ -53,7 +53,7 @@
 {% if field == details.foreignKey %}
 {% set isKey = true %}
                         <td>
-                            <?php if(${{ singularVar }}->has('{{ details.property }}')) { ?>
+                            <?php if(${{ singularVar }}->hasValue('{{ details.property }}')) { ?>
                                 <?=$this->Html->link(
                                     ${{ singularVar }}->{{ details.property }}->{{ details.displayField }},
                                     [
@@ -112,11 +112,11 @@
     </div>
     <div class="paginator">
         <ul class="pagination">
-            <?=$this->Paginator->first('<< '.__('first'))?>
-            <?=$this->Paginator->prev('< '.__('previous'))?>
+            <?=$this->Paginator->first('<< ' . __('first'))?>
+            <?=$this->Paginator->prev('< ' . __('previous'))?>
             <?=$this->Paginator->numbers()?>
-            <?=$this->Paginator->next(__('next').' >')?>
-            <?=$this->Paginator->last(__('last').' >>')?>
+            <?=$this->Paginator->next(__('next') . ' >')?>
+            <?=$this->Paginator->last(__('last') . ' >>')?>
         </ul>
         <p><?=$this->Paginator->counter(__('Page {{ '{{' }}page{{ '}}' }} of {{ '{{' }}pages{{ '}}' }}, showing {{ '{{' }}current{{ '}}' }} record(s) out of {{ '{{' }}count{{ '}}' }} total'))?></p>
     </div>
